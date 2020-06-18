@@ -74,7 +74,7 @@ checkmarx:
   jira-project-field:
   jira-custom-field:
   jira-issuetype-field:
-  jira-assignee-field:
+  jira-assignee-field: rudy.marquez@checkmarx.com
 
 jira:
   url: http://192.168.0.101:8080
