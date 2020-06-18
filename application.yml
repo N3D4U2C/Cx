@@ -1,0 +1,171 @@
+server:
+    port: 9595  #4343 for ssl
+    #ssl:
+    #    key-store: cxflowkeystore.jks
+    #    key-store-password: hKZtgssHCpLYfJJnuaWX
+    #    key-store-type: { JKS }
+    #    key-alias: cxflow
+
+logging:
+  file: cx-flow.log
+  level:
+   com:
+     checkmarx:
+       flow:
+         service: TRACE
+   org:
+     apache:
+       http:
+         wire: TRACE
+     springframework:
+       web:
+         client:
+           RestTemplate: TRACE
+
+cx-flow:
+  bug-tracker: JIRA
+  bug-tracker-impl:
+    - JIRA
+    - CxXml
+    - Json
+    - GitLab
+    - GitHub
+    - Csv
+  branches:
+    - master
+  filter-severity:
+    - High
+  filter-category:
+    - Stored_XSS
+  filter-cwe:
+  filter-status:
+    #- Urgent
+    #- Confirmed
+# track-application-only: false
+  mitre-url: https://cwe.mitre.org/data/definitions/%s.html
+# break-build: true
+#  wiki-url: https://custodela.atlassian.net/wiki/spaces/AS/pages/79462432/Remediation+Guidance
+#  codebash-url: https://cxa.codebashing.com/courses/
+#  mail:
+ #    host: smtp.gmail.com
+ #    port: 587
+ #    username: xxx
+ #    password: xxx
+ #    enabled:
+
+checkmarx:
+  username: cxadmin
+  password: "V9YfAYqyN#"
+  client-secret: 014DF517-39D1-4453-B7B3-9930C563627C
+  base-url: http://192.168.0.137
+  multi-tenant: true
+  configuration: Default Configuration
+  scan-preset: High and Medium
+  team: \CxServer\SP\Checkmarx\Users
+  project: "EMPTY PROJECT"
+  url: ${checkmarx.base-url}/cxrestapi
+  #preserve-xml: true
+  incremental: true
+#WSDL Config
+  portal-url: ${checkmarx.base-url}/cxwebinterface/Portal/CxWebService.asmx
+  sdk-url: ${checkmarx.base-url}/cxwebinterface/SDK/CxSDKWebService.asmx
+  portal-wsdl: ${checkmarx.base-url}/Portal/CxWebService.asmx?wsdl
+  sdk-wsdl: ${checkmarx.base-url}/SDK/CxSDKWebService.asmx?wsdl
+  jira-project-field:
+  jira-custom-field:
+  jira-issuetype-field:
+  jira-assignee-field:
+
+jira:
+  url: http://192.168.0.101:8080
+  username: cxjira
+  token: "@#v2.w^MC3Tw"
+  project: CXFLOW
+  issue-type: Bug
+  priorities:
+    High: High
+    Medium: Medium
+    Low: Low
+    Informational: Lowest
+  open-transition: In Progress
+  close-transition: Done
+  open-status:
+    - To Do
+    - In Progress
+    - In Review
+  closed-status:
+    - Done
+  fields:
+
+github:
+  webhook-token: 123456
+  token: 8911913d61d9a823e430caf3ba1944039cf46617
+  url: https://github.com
+  api-url: https://api.github.com/repos/
+  false-positive-label: false-positive
+  block-merge: true
+
+gitlab:
+  webhook-token: 123456
+  token: z522N8hbZ6PxKnJRxvMa
+  url: https://gitlab.com
+  api-url: https://gitlab.com/api/v4/
+  false-positive-label: false-positive
+  block-merge: true
+  
+bitbucket:
+  webhook-token: 123456
+  token: XXXXX
+  url: https://api.bitbucket.org
+  api-path: /2.0
+  false-positive-label: false-positive
+ 
+azure:
+  webhook-token: xxxx
+  token: xxxx
+  url: https://dev.azure.com
+  issue-type: issue
+  api-version: 5.0
+  false-positive-label: false-positive
+  #block-merge: true
+
+json:
+  file-name-format: "[TEAM]-[PROJECT]-[TIME].json"
+  data-folder: "C:\\CxFlow\\json"
+
+cx-xml:
+  file-name-format: "[TEAM]-[PROJECT]-[TIME].xml"
+  data-folder: "/tmp/cxflow"
+
+csv:
+  file-name-format: "[TEAM]-[PROJECT]-[TIME].csv"
+  data-folder: "/tmp/cxflow"
+  include-header: true
+  fields:
+    - header: Application
+      name: application
+      default-value: unknown
+      #- header: Primary URL
+      #name: static
+      #default-value: ${tmp.url}
+    - header: severity
+      name: severity
+    - header: Vulnerability ID
+      name: summary
+      prefix: "[APP]:"
+    - header: file
+      name: filename
+    - header: Vulnerability ID
+      name: summary
+    - header: Vulnerability Name
+      name: category
+    - header: Category ID
+      name: cwe
+    - header: Description
+      name: description
+      #prefix: "*"
+      #postfix: "*"
+    - header: Severity
+      name: severity
+    - header: recommendation
+      name: recommendation
